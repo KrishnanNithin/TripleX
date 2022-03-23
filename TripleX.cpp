@@ -1,4 +1,5 @@
 #include <iostream>
+#include <ctime>
 
 int LevelDifficulty = 1;
 const int MaxLevel = 7;
@@ -20,9 +21,9 @@ bool PlayGame(){
     LevelInit();
 
     // Declare variables
-    const int CodeA = 4;
-    const int CodeB = 3;
-    const int CodeC = 5;
+    const int CodeA = rand() % LevelDifficulty + LevelDifficulty;
+    const int CodeB = rand() % LevelDifficulty + LevelDifficulty;
+    const int CodeC = rand() % LevelDifficulty + LevelDifficulty;
     const int CodeSum = CodeA+CodeB+CodeC;
     const int CodeProduct = CodeA*CodeB*CodeC;
 
@@ -54,6 +55,7 @@ bool PlayGame(){
 
 int main()
 {   
+    srand(time(NULL));
     PrintIntro();
     while (LevelDifficulty <= MaxLevel)
     {
