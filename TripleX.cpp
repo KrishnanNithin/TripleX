@@ -1,5 +1,8 @@
 #include <iostream>
 
+int LevelDifficulty = 1;
+const int MaxLevel = 7;
+
 void PrintIntro(){
     // Sets up the start of the game.
     std::cout << "You are a young student working on a cryptography project.";
@@ -8,9 +11,15 @@ void PrintIntro(){
     std::cout << "\nAn incorrect answer may be fatal; proceed with caution." << std::endl;
 }
 
-void PlayGame(){
+void LevelInit(){
+    std::cout << "You are now at level " << LevelDifficulty << " of encryption." << std::endl << std::endl;
+}
 
-    // Declare integers.
+bool PlayGame(){
+
+    LevelInit();
+
+    // Declare variables
     const int CodeA = 4;
     const int CodeB = 3;
     const int CodeC = 5;
@@ -32,17 +41,31 @@ void PlayGame(){
 
     // Verify if guesses were correct
     if (GuessSum == CodeSum && GuessProduct == CodeProduct){
-        std::cout << "Congrats! You live to see another day!";
+        if (LevelDifficulty < MaxLevel){
+        std::cout << "Congrats! You have unlocked the next level of encryption" << std::endl << std::endl;
+        }
+        return true;
     }
     else {
-        std::cout << "Alas, you've been caught...";
+        std::cout << "Alas, you were nearly caught... Proceed with caution." << std::endl << std::endl;
+        return false;
     }
-
 }
 
 int main()
-{
+{   
     PrintIntro();
-    PlayGame();
+    while (LevelDifficulty <= MaxLevel)
+    {
+        bool bLevelComplete = PlayGame();
+        std::cin.clear(); //Clears any errors
+        std::cin.ignore(); //Discards the buffer
+
+        if (bLevelComplete)
+        {
+            ++LevelDifficulty;
+        }
+    }
+    std::cout << "Congrats! You have cracked the code and saved the world.";
     return 0;
 }
